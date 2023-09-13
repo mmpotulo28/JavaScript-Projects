@@ -1,0 +1,74 @@
+.converter_container {
+    display: block;
+    border: 2px solid blue;
+    box-shadow: 2px 5px 10px rgba(0, 0, 255, 0.61);
+    border-radius: 20px;
+    background: black;
+    color: white;
+    text-align: center;
+    margin: auto;
+    width: fit-content;
+    padding: 20px;
+
+}
+
+.converter-body {
+    display: block;
+    padding: 0px;
+    margin: 0;
+    width: 250px;
+    overflow: hidden;
+}
+
+.converter_inputs {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 10px 5px;
+}
+
+.converter_inputs input {
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 10px 0 0 10px;
+    max-width: 160px;
+    text-align: left;
+    height: 23px;
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+.converter_inputs select {
+    display: inline-block;
+    background-color: grey;
+    border-radius: 0 10px 10px 0;
+    font-size: 14px;
+}
+
+.converter_inputs select:focus,
+select:hover {
+    background-color: white;
+    color: black;
+}
+
+.converter_button {
+    margin-top: 15px;
+}
+
+.converter_button button {
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 10px 5px;
+    background-color: grey;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.converter_button button:hover,
+button:focus {
+    background-color: rgb(0, 0, 255);
+    color: white;
+}

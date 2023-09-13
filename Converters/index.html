@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Converters</title>
+  </head>
+  <body>
+    <header></header>
+
+    <section class="body_content">
+      <div class="converter_container">
+        <h2 class="converter_title">Binary Converter</h2>
+
+        <form action="" id="conv_form" class="converter-body">
+            
+          <div class="converter_inputs">
+            <input type="text" required id="from_input" placeholder="From" />
+            <select name="from" id="from_select">
+              <option value="bin">Binary</option>
+              <option value="dec">Decimal</option>
+              <option value="hex">Hex</option>
+            </select>
+
+          </div>
+          
+          <div class="converter_inputs">
+            <input type="text" id="to_input" placeholder="To"/>
+            <select name="to" id="to_select">
+                <option value="bin">Binary</option>
+                <option value="dec">Decimal</option>
+                <option value="hex">Hex</option>
+            </select>
+          </div>
+
+          <div class="converter_button">
+            <button type="submit" id="conv_btn">Convert</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <script src="./assets/js/index.js"></script>
+  </body>
+</html>
