@@ -10,6 +10,7 @@ btns.forEach(btn => {
         //get clicked button id
         btnId = btn.id
 
+        onOff()
         //pass id to button handler function
         buttonHandler(btnId)
     })
@@ -21,164 +22,493 @@ var num1 = 0, num2 = 0, num3 = 0, num4 = 0, num5 = 0, num6 = 0, num6 = 0, num7 =
 var operator = "", control = "", result = 0, num = 0
 var expNum = 1, on = -1
 
-function buttonHandler(btnId) {
-    console.clear()
-
-    if (btnId == "on") {
-        //turn on calculator
-        on *= -1
-
-        if (on == 1) {
-            screen.textContent = "0"
-            reset()
-        } else {
-            screen.textContent = "off"
-            reset()
-        }
-    }
-
-    //do this if calculator is on
+/***check if calulator is on */
+function onOff() {
     if (on == 1) {
-        if (btnId == "=") {
-            //call calculation function
-            calculate(num, operator)
-            //reset variables
-            reset()
-        }
+        screen.style.borderColor = "green"
+    } else {
+        screen.style.borderColor = "red"
+    }
+}
 
-        //check if id is a control button
-        controls()
+//button handler function
+function buttonHandler(btnId) {
 
-        //check if id is for an operator button
-        operators()
+    //check which button was clicked
+    switch (btnId) {
+        case "on":
+            //turn on/off calculator
+            on *= -1
+            onOff()
 
-        //listen for number buttons
-        if (btnId == "1" || btnId == "2" || btnId == "3" || btnId == "4" || btnId == "5" || btnId == "6" || btnId == "7" || btnId == "8" || btnId == "9" || btnId == "0") {
-            //console.log(btnId);
-            if (expNum == 1) {
-                num1 += btnId
-                num1 = Number(num1) //convert to number
-                //show to screen
-                screen.textContent = num1
-            } else if (expNum == 2) {
-                num2 += btnId
-                num2 = Number(num2) //convert to number
-                //show to screen
-                screen.textContent = num2
-            } else if (expNum == 3) {
-                num += btnId
-                num = Number(num) //convert to number
-                //show to screen
-                screen.textContent = num
+            if (on == 1) {
+                screen.innerHTML = "0"
+            } else {
+                //clear screen
+                screen.innerHTML = ""
+                //set control to 0
             }
-        }
-    }
-}
 
-/**********Control keys*****/
-function controls() {
-    if (btnId == "del" || btnId == "ac" || btnId == "on" || btnId == "pow" || btnId == "ans") {
+            control = 0
 
-        if (btnId == "ac") {
-            screen.textContent = "0"
-            reset()
-        } else if (btnId == "del") {
-            //delete last number
-            if (expNum == 1) {
-                num1 = num1.toString()
-                num1 = num1.slice(0, -1)
-                num1 = Number(num1)
-                screen.textContent = num1
-            } else if (expNum == 2) {
-                num2 = num2.toString()
-                num2 = num2.slice(0, -1)
-                num2 = Number(num2)
-                screen.textContent = num2
+            break
+        case "clear":
+            //clear screen
+            screen.innerHTML = ""
+            //set control to 0
+            control = 0
+            break
+        case "backspace":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //remove last character
+                num = num.slice(0, -1)
+                //display new value
+                screen.innerHTML = num
             }
-        }
-        if (btnId == "ans") {
-            //show result to screen
-            screen.textContent = result
-            console.log("answer: " + result);
+            break
+        case "plus":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //get screen value
+                    num = screen.innerHTML
+                    //set num1 to screen value
+                    num1 = num
+                    //clear screen
+                    screen.innerHTML = ""
+                    //set control to 1
+                    control = 1
+                    //set operator to +
+                    operator = "+"
+                }
+            }
+            break
+        case "minus":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //get screen value
+                    num = screen.innerHTML
+                    //set num1 to screen value
+                    num1 = num
+                    //clear screen
+                    screen.innerHTML = ""
+                    //set control to 1
+                    control = 1
+                    //set operator to -
+                    operator = "-"
+                }
+            }
+            break
+        case "multiply":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //get screen value
+                    num = screen.innerHTML
+                    //set num1 to screen value
+                    num1 = num
+                    //clear screen
+                    screen.innerHTML = ""
+                    //set control to 1
+                    control = 1
+                    //set operator to *
+                    operator = "*"
+                }
+            }
+            break
+        case "divide":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //get screen value
+                    num = screen.innerHTML
+                    //set num1 to screen value
+                    num1 = num
+                    //clear screen
+                    screen.innerHTML = ""
+                    //set control to 1
+                    control = 1
+                    //set operator to /
+                    operator = "/"
+                }
+            }
+            break
+        case "equals":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 1
+                if (control == 1) {
+                    //get screen value
+                    console.log(control);
+                    num = screen.innerHTML
+                    //set num2 to screen value
+                    num2 = num
+                    //check operator
+                    switch (operator) {
+                        case "+":
+                            //add num1 and num2
+                            result = parseFloat(num1) + parseFloat(num2)
+                            //display result
+                            screen.innerHTML = result
+                            //set control to 0
+                            control = 0
+                            break
+                        case "-":
+                            //subtract num2 from num1
+                            result = parseFloat(num1) - parseFloat(num2)
+                            //display result
+                            screen.innerHTML = result
+                            //set control to 0
+                            control = 0
+                            break
+                        case "*":
+                            //multiply num1 and num2
+                            result = parseFloat(num1) * parseFloat(num2)
+                            //display result
+                            screen.innerHTML = result
+                            //set control to 0
+                            control = 0
+                            break
+                        case "/":
+                            //divide num1 by num2
+                            result = parseFloat(num1) / parseFloat(num2)
+                            //display result
+                            screen.innerHTML = result
+                            //set control to 0
+                            control = 0
+                            break
+                    }
+                }
+            }
+            break
+        case "dot":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //check if screen is empty
+                    if (screen.innerHTML == "") {
+                        //display 0.
+                        screen.innerHTML = "0."
+                    } else {
+                        //display .
+                        screen.innerHTML += "."
+                    }
+                }
+            }
+            break
+        case "plusminus":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //get screen value
+                    num = screen.innerHTML
+                    //check if screen is empty
+                    if (num == "") {
+                        //display 0
+                        screen.innerHTML = "0"
+                    } else {
+                        //check if screen value is positive
+                        if (num > 0) {
+                            //display -screen value
+                            screen.innerHTML = "-" + num
+                        } else {
+                            //display screen value without -
+                            screen.innerHTML = num.slice(1)
+                        }
+                    }
+                }
+            }
+            break
+        case "percent":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //get screen value
+                    num = screen.innerHTML
+                    //check if screen is empty
+                    if (num == "") {
+                        //display 0
+                        screen.innerHTML = "0"
+                    } else {
+                        //divide screen value by 100
+                        result = parseFloat(num) / 100
+                        //display result
+                        screen.innerHTML = result
+                    }
+                }
+            }
+            break
+        case "square":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //check if screen is empty
+                if (num == "") {
+                    //display 0
+                    screen.innerHTML = "0"
+                } else {
+                    //square screen value
+                    result = parseFloat(num) * parseFloat(num)
+                    //display result
+                    screen.innerHTML = result
+                }
+            }
+            break
+        case "cube":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //check if screen is empty
+                if (num == "") {
+                    //display 0
+                    screen.innerHTML = "0"
+                } else {
+                    //cube screen value
+                    result = parseFloat(num) * parseFloat(num) * parseFloat(num)
+                    //display result
+                    screen.innerHTML = result
+                }
+            }
+            break
+        case "sqrt":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //check if screen is empty
+                if (num == "") {
+                    //display 0
+                    screen.innerHTML = "0"
+                } else {
+                    //square root screen value
+                    result = Math.sqrt(parseFloat(num))
+                    //display result
+                    screen.innerHTML = result
+                }
+            }
+            break
+        case "cbrt":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //check if screen is empty
+                if (num == "") {
+                    //display 0
+                    screen.innerHTML = "0"
+                } else {
+                    //cube root screen value
+                    result = Math.cbrt(parseFloat(num))
+                    //display result
+                    screen.innerHTML = result
+                }
+            }
+            break
+        case "sin":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //check if screen is empty
+                if (num == "") {
+                    //display 0
+                    screen.innerHTML = "0"
+                } else {
+                    //calculate sin of screen value
+                    result = Math.sin(parseFloat(num))
+                    //display result
+                    screen.innerHTML = result
+                }
+            }
+            break
+        case "cos":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //check if screen is empty
+                if (num == "") {
+                    //display 0
+                    screen.innerHTML = "0"
+                } else {
+                    //calculate cos of screen value
+                    result = Math.cos(parseFloat(num))
+                    //display result
+                    screen.innerHTML = result
+                }
+            }
+            break
+        case "tan":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //calculate tan of screen value
+                result = Math.tan(parseFloat(num))
+                //display result
+                screen.innerHTML = result
+            }
+            break
+        case "log":
+            //check if calculator is on
+            if (on == 1) {
+                //calculate logE of screen value
+                result = Math.LOG10E(parseFloat(num))
+                //display result
+                screen.innerHTML = result
+            }
+            break
+        case "exp":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //get screen value
+                    num = screen.innerHTML
+                    //clear screen
+                    screen.innerHTML = ""
+                    //set num1 to screen value
+                    num1 = screen.innerHTML
 
-            num = result
-        }
-
+                    //calculate
+                    result = Math.pow(parseFloat(num), parseFloat(num1))
+                    //display result
+                    screen.innerHTML = result
+                    //set control to 1
+                    control = 1
+                    //set operator to ^
+                    operator = "^"
+                }
+            }
+            break
+        case "factorial":
+            //check if calculator is on
+            if (on == 1) {
+                //get screen value
+                num = screen.innerHTML
+                //calculate factorial of screen value
+                result = factorial(parseFloat(num))
+                //display result
+                screen.innerHTML = result
+            }
+            break
+        case "pi":
+            //check if calculator is on
+            if (on == 1) {
+                //display pi
+                screen.innerHTML = Math.PI
+            }
+            break
+        case "e":
+            //check if calculator is on
+            if (on == 1) {
+                //display e
+                screen.innerHTML = Math.E
+            }
+            break
+        case "zero":
+            //check if calculator is on
+            if (on == 1) {
+                //check if control is 0
+                if (control == 0) {
+                    //check if screen is empty
+                    if (screen.innerHTML == "") {
+                        //display 0
+                        screen.innerHTML = "0"
+                    } else {
+                        //display 0
+                        screen.innerHTML += "0"
+                    }
+                }
+            }
+            break
+        case "one":
+            //check if calculator is on
+            if (on == 1) {
+                //display 1
+                screen.innerHTML += "1"
+            }
+            break
+        case "two":
+            //check if calculator is on
+            if (on == 1) {
+                //display 2
+                screen.innerHTML += "2"
+            }
+            break
+        case "three":
+            //check if calculator is on
+            if (on == 1) {
+                //display 3
+                screen.innerHTML += "3"
+            }
+            break
+        case "four":
+            //check if calculator is on
+            if (on == 1) {
+                //display 4
+                screen.innerHTML += "4"
+            }
+            break
+        case "five":
+            //check if calculator is on
+            if (on == 1) {
+                //display 5
+                screen.innerHTML += "5"
+            }
+            break
+        case "six":
+            //check if calculator is on
+            if (on == 1) {
+                //display 6
+                screen.innerHTML += "6"
+            }
+            break
+        case "seven":
+            //check if calculator is on
+            if (on == 1) {
+                //display 7
+                screen.innerHTML += "7"
+            }
+            break
+        case "eight":
+            //check if calculator is on
+            if (on == 1) {
+                //display 8
+                screen.innerHTML += "8"
+            }
+            break
+        case "nine":
+            //check if calculator is on
+            if (on == 1) {
+                //display 9
+                screen.innerHTML += "9"
+            }
+            break
     }
 }
 
-/**********Operator keys*****/
-function operators() {
-    if (btnId == "+" || btnId == "-" || btnId == "*" || btnId == "/" || btnId == "+-" || btnId == "sqrt") {
-
-        if (expNum >= 3) {
-            calculate(num, operator)
-            num = 0
-        } else {
-            //set excpeted number
-            expNum++
-        }
-
-
-        //set operator
-        if (btnId == "+") {
-            operator = "add"
-        } else if (btnId == "-") {
-            operator = "sub"
-        } else if (btnId == "*") {
-            operator = "mult"
-        } else if (btnId == "/") {
-            operator = "dev"
-        } else if (btnId == "sqrt") {
-            operator = "sqrt"
-        }
+//factorial function
+function factorial(num) {
+    //check if num is 0
+    if (num == 0) {
+        //return 1
+        return 1
+    } else {
+        //calculate factorial
+        return num * factorial(num - 1)
     }
 }
-
-/******do calculations******* */
-function calculate(num, operator) {
-
-    if (expNum <= 2) {
-        console.log(expNum);
-
-        if (operator == "add") {
-            result = num1 + num2
-        } else if (operator == "sub") {
-            result = num1 - num2
-        } else if (operator == "mult") {
-            result = num1 * num2
-        } else if (operator == "dev") {
-            result = num1 / num2
-        } else if (operator == "sqrt") {
-            result = Math.sqrt(num1)
-        }
-    }
-    if (expNum >= 3) {
-        console.log(expNum);
-
-        if (operator == "add") {
-            result += num
-        } else if (operator == "sub") {
-            result -= num
-        } else if (operator == "mult") {
-            result *= num
-        } else if (operator == "dev") {
-            result /= num
-        } else if (operator == "sqrt") {
-            result = Math.sqrt(num)
-        }
-    }
-
-    //show to screen
-    screen.textContent = result
-
-    console.log("operator: " + operator);
-    console.log("result: " + result);
-}
-
-/******reset variables******** */
-function reset() {
-    num1 = 0, num2 = 0, operator = "", control = ""
-    expNum = 1, num = 0
-}
-

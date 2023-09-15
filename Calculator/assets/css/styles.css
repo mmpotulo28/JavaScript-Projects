@@ -1,15 +1,21 @@
+
+:root {
+    --math-font: 'Roboto', sans-serif;
+    --number-font-size: auto; 
+}
+
 body {
     margin: 0;
     padding: 0;
     background-color: white;
     color: white;
+    
 }
 
 .calc-container {
     background: linear-gradient(rgb(31, 0, 31), black, grey);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: 100vh;
 }
@@ -21,8 +27,23 @@ body {
     background-color: black;
     border-radius: 20px;
     width: fit-content;
-    height: 500px;
+    max-width: 370px;
+    height: fit-content;
     padding: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 10px 5px rgb(83, 0, 98);
+    outline: 2px solid rgb(83, 0, 98);
+}
+
+.supscrp {
+    /*make font to be superscript*/
+    margin: 0;
+    display: inline-block;
+    vertical-align: super;
+    font-size: 19px;
+    color: grey;
+    font-family: var(--math-font);
+    margin-top: -5px;
 }
 
 .calc-label {
@@ -44,25 +65,32 @@ body {
     font-size: 30px;
     padding: 15px;
     overflow: hidden;
+    /***styyle overflow***/
+    white-space: nowrap;
+
+    font-family: var(--math-font);
 }
 
 .ctrl-buttons {
     display: grid;
-    margin: 0 auto;
+    margin: 15px auto;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr;
-    height: 30px;
+    height: fit-content;
     grid-gap: 10px;
     width: 98%;
     border-radius: 20px;
+    font-family: var(--math-font);
 }
 
 .ctrl-buttons .button {
-    font-size: 25px;
     border-radius: 20px;
     background-color: rgb(29, 29, 29);
     color: rgb(175, 175, 175);
     box-shadow: none;
+    font-family: var(--math-font);
+    height: 30px;
+    text-align: center;
 }
 
 .buttons {
@@ -82,11 +110,14 @@ body {
     border: 1px solid grey;
     border-radius: 20px 10px;
     text-align: center;
-    font-size: 30px;
-    font-weight: bold;
+    font-size: var(--number-font-size);
+    font-weight: 800;
     background-color: rgb(90, 90, 90);
     box-shadow: 3px 3px 2px rgb(83, 0, 98);
     cursor: pointer;
+    font-family: var(--math-font);
+    height: 40px;
+    width: 60px;
 }
 
 .button:hover {
